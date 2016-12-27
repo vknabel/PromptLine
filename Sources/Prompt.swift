@@ -46,20 +46,6 @@ public extension Prompt {
   }
 }
 
-public extension Prompt {
-  public static func cd<E: Error>(_ path: Path) -> PromptRunner<E> {
-    return { p in
-      .success(p.lensWorkingDirectory(to: p.workingDirectory + path))
-    }
-  }
-
-  public func declare(_ variable: String, as value: String) -> Prompt {
-    var env = environment
-    env[variable] = value
-    return lensEnvironment(to: env)
-  }
-}
-
 import Result
 
 public enum PromptError: Error {

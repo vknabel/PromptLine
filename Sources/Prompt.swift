@@ -59,7 +59,11 @@ public extension Prompt {
   public func run(_ arguments: [String]) -> Result<Prompt, PromptError> {
     let process = Process()
     process.launchPath = launch.description
-    process.arguments = arguments
+    process.arguments = arguments.map({ arg in
+      environment.reduce(arg, { arg, envVar in
+       arg.replacingOccurrences(of: "$\(envVar.key)", with: envVar.value)
+      })
+    })
     process.currentDirectoryPath = workingDirectory.description
     process.launch()
     process.waitUntilExit()

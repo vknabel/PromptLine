@@ -1,5 +1,11 @@
 # Prompt
 
+## 0.3.0
+
+### API Additions
+
+- Supports env vars - @vknabel
+
 ## 0.2.0
 
 ### Dependencies

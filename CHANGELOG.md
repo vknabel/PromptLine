@@ -1,5 +1,11 @@
 # Prompt
 
+## 0.3.1
+
+### Further Changes
+
+- Supports Linux - @vknabel
+
 ## 0.3.0
 
 ### API Additions

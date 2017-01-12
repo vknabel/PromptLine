@@ -1,0 +1,28 @@
+
+language: generic
+sudo: required
+
+install:
+  - eval "$(curl -sL https://gist.githubusercontent.com/kylef/5c0475ff02b7c7671d2a/raw/9f442512a46d7a2af7b850d65a7e9bd31edfb09b/swiftenv-install.sh)"
+  # - bundle install
+script:
+  - set -o pipefail
+  - swift build
+  # - bundle exec danger
+cache:
+  - bundler
+  - directories:
+    - .rock
+    - Packages
+    - $HOME/.swiftenv
+    - $HOME/.rock
+notifications:
+  email: false
+
+matrix:
+  include:
+    - os: osx
+      osx_image: xcode8
+    - os: linux
+      dist: trusty
+      sudo: required

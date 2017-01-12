@@ -2,6 +2,10 @@ import Foundation
 import PathKit
 import Lens
 
+#if os(Linux)
+typealias Process = Task
+#endif
+
 public struct Prompt {
   public let launch: Path
   public let workingDirectory: Path

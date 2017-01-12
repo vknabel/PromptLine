@@ -8,7 +8,7 @@ public extension Prompt {
       try (prompt.workingDirectory + path).mkpath()
       return prompt
     })
-      .mapError({ _ in PromptError.termination(reason: .exit, status: 1)})
+      .mapError({ _ in PromptError.termination(status: 1)})
     }
   }
 

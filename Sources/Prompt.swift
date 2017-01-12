@@ -53,7 +53,7 @@ public extension Prompt {
 import Result
 
 public enum PromptError: Error {
-  case termination(reason: Process.TerminationReason, status: Int)
+  case termination(status: Int)
 }
 
 public extension Prompt {
@@ -76,7 +76,7 @@ public extension Prompt {
     if process.terminationReason == .exit && status == 0 {
       return Result.success(self)
     } else {
-      return .failure(PromptError.termination(reason: process.terminationReason, status: status))
+      return .failure(PromptError.termination(status: status))
     }
   }
 }

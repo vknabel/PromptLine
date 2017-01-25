@@ -10,7 +10,7 @@ public func describePromptLine() -> Never {
 }
 
 public class PromptLineTapsTests: XCTestCase {
-  func testSomething() {
+  public func testSomething() {
     describePromptLine()
   }
 }

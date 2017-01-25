@@ -1,0 +1,3 @@
+name: PromptLine
+dependencies:
+  - sourcery@0.5.3

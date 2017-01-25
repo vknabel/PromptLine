@@ -3,4 +3,4 @@ dependencies:
   - sourcery@0.5.3
 scripts:
   generate:
-    - sourcery Tests/ Templates/LinuxMain.swift.stencil Tests/LinuxMain.swift
+    - sourcery Tests/ Templates/LinuxMain.swift.stencil Tests/LinuxMain.swift # --args testimports="import PromptLineTests"

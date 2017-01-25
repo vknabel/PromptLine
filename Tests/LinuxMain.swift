@@ -3,6 +3,7 @@
 
 
 import XCTest
+import PromptLineTests
 
 
 extension PromptLineTapsTests {

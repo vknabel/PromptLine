@@ -1,4 +1,20 @@
-# Prompt
+# PromptLine
+
+## 0.5.0
+
+### Breaking Changes
+
+- Reintroduced `TerminationReason` for `PromptError`
+- Renamed infix `%` to infix `>-`
+
+### API Additions
+
+- Intoduces `Prompt.Shell` and `Prompt.defaultShell`, which is great for Unit Tests
+
+### Further Changes
+
+- Uses Taps for Unit Tests
+- `>-(_:)` for `String` now executes in its own bash
 
 ## 0.4.0
 

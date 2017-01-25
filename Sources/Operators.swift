@@ -22,7 +22,7 @@ precedencegroup PromptRunnerAndChaining {
 }
 
 prefix operator >-
-infix operator % : PromptRunnerApplication
+infix operator >- : PromptRunnerApplication
 infix operator %& : PromptRunnerAndChaining
 infix operator %| : PromptRunnerOrChaining
 infix operator %> : PromptRunnerThenChaining
@@ -32,16 +32,16 @@ public typealias PromptRunner<E: Error> = (Prompt) -> Result<Prompt, E>
 
 public let zeroRunner: PromptRunner<PromptError> = { .success($0) }
 
-public func % (prompt: Prompt, runner: PromptRunner<PromptError>) -> Result<Prompt, PromptError> {
+public func >- (prompt: Prompt, runner: PromptRunner<PromptError>) -> Result<Prompt, PromptError> {
   return runner(prompt)
 }
 
 public prefix func >- (arguments: [String]) -> PromptRunner<PromptError> {
-  return { $0.run(arguments) }
+  return Prompt.defaultShell(.prepared(arguments))
 }
 
 public prefix func >- (command: String) -> PromptRunner<PromptError> {
-  return { $0.run(command.components(separatedBy: " ")) }
+  return Prompt.defaultShell(.inlined(command))
 }
 
 public func flatMap<E: Error>(_ lhs: @escaping PromptRunner<E>, _ rhs: @escaping PromptRunner<E>) -> PromptRunner<E> {

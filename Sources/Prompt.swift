@@ -7,6 +7,8 @@ typealias Process = Task
 #endif
 
 public struct Prompt {
+  public static var defaultShell = bashShell
+
   public let launch: Path
   public let workingDirectory: Path
   public let environment: [String: String]
@@ -53,7 +55,7 @@ public extension Prompt {
 import Result
 
 public enum PromptError: Error {
-  case termination(status: Int)
+  case termination(status: Int, reason: Process.TerminationReason)
 }
 
 public extension Prompt {
@@ -63,11 +65,7 @@ public extension Prompt {
   public func run(_ arguments: [String]) -> Result<Prompt, PromptError> {
     let process = Process()
     process.launchPath = launch.description
-    process.arguments = arguments.map({ arg in
-      environment.reduce(arg, { arg, envVar in
-       arg.replacingOccurrences(of: "$\(envVar.key)", with: envVar.value)
-      })
-    })
+    process.arguments = arguments
     process.currentDirectoryPath = workingDirectory.description
     process.launch()
     process.waitUntilExit()
@@ -76,7 +74,7 @@ public extension Prompt {
     if process.terminationReason == .exit && status == 0 {
       return Result.success(self)
     } else {
-      return .failure(PromptError.termination(status: status))
+      return .failure(PromptError.termination(status: status, reason: process.terminationReason))
     }
   }
 }

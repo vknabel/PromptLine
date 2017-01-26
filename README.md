@@ -25,7 +25,7 @@ PromptLine uses these operators:
 | Operator  | Function               | Usage                                                                         |
 |-----------|------------------------|-------------------------------------------------------------------------------|
 | `>-`      | `prompt.run("string")` | Creates a runner out of Strings or String arrays.                             |
-| `%`       | `runner(prompt)`       | Executes a runner against a prompt.                                           |
+| `>-`      | `runner(prompt)`       | Executes a runner against a prompt.                                           |
 | `%&`      | `flatMap(_:_:)`        | Chains two runners. The right one will only be executed if the first succeeds.|
 | `%|`      | `flatMapError(_:_:)`   | Chains two runners. The right one will only be executed if the first failed.  |
 | `%>`      | `second(_:_:)`         | Chains two runners. Both will always be executed.                             |

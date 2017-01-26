@@ -15,6 +15,7 @@
 
 - Uses Taps for Unit Tests
 - `>-(_:)` for `String` now executes in its own bash
+- All operators are now lazy when creating closures
 
 ## 0.4.0
 

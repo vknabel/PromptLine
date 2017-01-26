@@ -3,6 +3,13 @@ import Result
 import PromptLine
 import RxSwift
 
+let failingPromptRunner: PromptRunner<PromptError> = {
+  let command = ShellCommand.runner { _ in
+    .failure(.termination(status: 1, reason: .exit))
+  }
+  return Prompt.defaultShell(command)($0)
+}
+
 struct OneError: Error { }
 struct AnotherError: Error { }
 
@@ -23,8 +30,8 @@ extension Prompt {
     return { command in
       creation.onNext(command)
       return { prompt in
-        let toBeExecuted = shell(command)
         execution.onNext(prompt)
+        let toBeExecuted = shell(command)
         let executionResult = toBeExecuted(prompt)
         result.onNext(executionResult)
         return executionResult
@@ -73,13 +80,11 @@ extension OfferingRxTaps {
     ) { t -> Observable<T> in
       defer {
         let oldDefault = Prompt.defaultShell
-        defer { Prompt.defaultShell = oldDefault }
 
         Prompt.defaultShell = testingShell
-        results.onNext(runner()(prompt))
-        creations.onCompleted()
-        executions.onCompleted()
-        results.onCompleted()
+        _ = runner()(prompt)
+
+        Prompt.defaultShell = oldDefault
       }
       if let plan = plan {
         return testShell(

@@ -44,52 +44,52 @@ public prefix func >- (command: String) -> PromptRunner<PromptError> {
   return Prompt.defaultShell(.inlined(command))
 }
 
-public func flatMap<E: Error>(_ lhs: @escaping PromptRunner<E>, _ rhs: @escaping PromptRunner<E>) -> PromptRunner<E> {
+public func flatMap<E: Error>(_ lhs: @escaping PromptRunner<E>, _ rhs: @autoclosure @escaping () -> PromptRunner<E>) -> PromptRunner<E> {
   return { prompt in
     let lr = lhs(prompt)
     switch lr {
     case let .success(env):
-      return rhs(env)
+      return rhs()(env)
     case let .failure(env):
       return .failure(env)
     }
   }
 }
 
-public func %& <E: Error>(lhs: @escaping PromptRunner<E>, rhs: @escaping PromptRunner<E>) -> PromptRunner<E> {
-  return flatMap(lhs, rhs)
+public func %& <E: Error>(lhs: @escaping PromptRunner<E>, rhs: @autoclosure @escaping () -> PromptRunner<E>) -> PromptRunner<E> {
+  return flatMap(lhs, rhs())
 }
 
-public func flatMapError<EL: Error, ER: Error>(_ lhs: @escaping PromptRunner<EL>, _ rhs: @escaping PromptRunner<ER>) -> PromptRunner<ER> {
+public func flatMapError<EL: Error, ER: Error>(_ lhs: @escaping PromptRunner<EL>, _ rhs: @autoclosure @escaping () -> PromptRunner<ER>) -> PromptRunner<ER> {
   return { prompt in
     let lr = lhs(prompt)
     switch lr {
     case let .success(env):
       return .success(env)
     case .failure(_):
-      return rhs(prompt)
+      return rhs()(prompt)
     }
   }
 }
 
-public func %| <EL: Error, ER: Error>(lhs: @escaping PromptRunner<EL>, rhs: @escaping PromptRunner<ER>) -> PromptRunner<ER> {
-  return flatMapError(lhs, rhs)
+public func %| <EL: Error, ER: Error>(lhs: @escaping PromptRunner<EL>, rhs: @autoclosure @escaping () -> PromptRunner<ER>) -> PromptRunner<ER> {
+  return flatMapError(lhs, rhs())
 }
 
-public func second<EL: Error, ER: Error>(_ lhs: @escaping PromptRunner<EL>, _ rhs: @escaping PromptRunner<ER>) -> PromptRunner<ER> {
+public func second<EL: Error, ER: Error>(_ lhs: @escaping PromptRunner<EL>, _ rhs: @autoclosure @escaping () -> PromptRunner<ER>) -> PromptRunner<ER> {
   return { prompt in
     let lr = lhs(prompt)
     switch lr {
     case let .success(env):
-      return rhs(env)
+      return rhs()(env)
     case .failure(_):
-      return rhs(prompt)
+      return rhs()(prompt)
     }
   }
 }
 
-public func %> <EL: Error, ER: Error>(lhs: @escaping PromptRunner<EL>, rhs: @escaping PromptRunner<ER>) -> PromptRunner<ER> {
-  return second(lhs, rhs)
+public func %> <EL: Error, ER: Error>(lhs: @escaping PromptRunner<EL>, rhs: @autoclosure @escaping () -> PromptRunner<ER>) -> PromptRunner<ER> {
+  return second(lhs, rhs())
 }
 
 public func mapError<EL: Error, ER: Error>(_ lhs: @escaping PromptRunner<EL>, transform rhs: @escaping (EL) -> ER) -> PromptRunner<ER> {

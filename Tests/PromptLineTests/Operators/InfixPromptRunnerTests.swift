@@ -34,10 +34,10 @@ func describeInfixPromptRunner(taps: Taps) {
   taps.rx.shellRunnerTest(
     "infix >- failing runners fail",
     plan: 1,
-    running: { $0 >- { _ in .failure(.termination(status: 1, reason: .exit)) } }
+    running: failingPromptRunner
   ) { t, _, _, results in
     results.single()
-      .map(Result.dematerialize)
+      .map { try $0.dematerialize() }
       .test(onError: t.doesThrow(of: PromptError.self))
   }
 }

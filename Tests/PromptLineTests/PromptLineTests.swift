@@ -5,7 +5,8 @@ import PromptLine
 public func describePromptLine() -> Never {
   Taps.runMain(testing: [
     describePrefixPromptRunner,
-    describeInfixPromptRunner
+    describeInfixPromptRunner,
+    describeFlatMap
   ])
 }
 

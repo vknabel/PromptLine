@@ -1,5 +1,7 @@
 # Rock
 .rock
+*.xcodeproj
+*.xcworkspace
 
 # Xcode
 #

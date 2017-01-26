@@ -3,11 +3,15 @@ import Result
 import PromptLine
 import RxSwift
 
-let failingPromptRunner: PromptRunner<PromptError> = {
-  let command = ShellCommand.runner { _ in
-    .failure(.termination(status: 1, reason: .exit))
+let failingPromptRunner: PromptRunner<PromptError> = exitPromptRunner(with: 1)
+
+func exitPromptRunner(with exitCode: Int) -> PromptRunner<PromptError> {
+  return {
+    let command = ShellCommand.runner { _ in
+      .failure(.termination(status: exitCode, reason: .exit))
+    }
+    return Prompt.defaultShell(command)($0)
   }
-  return Prompt.defaultShell(command)($0)
 }
 
 struct OneError: Error { }

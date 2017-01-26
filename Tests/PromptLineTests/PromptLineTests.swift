@@ -6,7 +6,8 @@ public func describePromptLine() -> Never {
   Taps.runMain(testing: [
     describePrefixPromptRunner,
     describeInfixPromptRunner,
-    describeFlatMap
+    describeFlatMap,
+    describeBashShell
   ])
 }
 

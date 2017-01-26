@@ -15,7 +15,7 @@ let main = >-"git clone https://github.com/krzysztofzablocki/Sourcery.git"
     %& >-"swift build"
     %& >-["./.debug/sourcery", sourcePath, templatesPath, outputPath]
 
-Prompt.current % main
+Prompt.current >- main
 ```
 
 ### Operators
@@ -41,7 +41,7 @@ import PackageDescription
 let package = Package(
     name: "YourPackage",
     dependencies: [
-        .Package(url: "https://github.com/vknabel/PromptLine.git", majorVersion: 0, minor: 1),
+        .Package(url: "https://github.com/vknabel/PromptLine.git", majorVersion: 0, minor: 5),
     ]
 )
 ```

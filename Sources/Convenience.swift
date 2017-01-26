@@ -8,7 +8,7 @@ public extension Prompt {
       try (prompt.workingDirectory + path).mkpath()
       return prompt
     })
-      .mapError({ _ in PromptError.termination(status: 1)})
+      .mapError({ _ in PromptError.termination(status: 1, reason: .exit)})
     }
   }
 
@@ -29,7 +29,7 @@ public extension Prompt {
             .success(p.lensWorkingDirectory(to: p.workingDirectory + path))
         }
     }
-    
+
     public func declare(_ variable: String, as value: String) -> Prompt {
         var env = environment
         env[variable] = value

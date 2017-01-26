@@ -71,10 +71,18 @@ public extension Prompt {
     process.waitUntilExit()
 
     let status = Int(process.terminationStatus)
+    #if os(Linux)
+    if status == 0 {
+      return Result.success(self)
+    } else {
+      return .failure(PromptError.termination(status: status, reason: .exit))
+    }
+    #else
     if process.terminationReason == .exit && status == 0 {
       return Result.success(self)
     } else {
       return .failure(PromptError.termination(status: status, reason: process.terminationReason))
     }
+    #endif
   }
 }

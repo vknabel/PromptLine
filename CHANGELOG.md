@@ -1,5 +1,11 @@
 # PromptLine
 
+## 0.5.1
+
+### Further Changes
+
+- Fixes an issue, that prevented some env var from being executed
+
 ## 0.5.0
 
 ### Breaking Changes

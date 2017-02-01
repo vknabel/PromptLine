@@ -67,6 +67,7 @@ public extension Prompt {
     process.launchPath = launch.description
     process.arguments = arguments
     process.currentDirectoryPath = workingDirectory.description
+    process.environment = environment
     process.launch()
     process.waitUntilExit()
 

@@ -1,5 +1,11 @@
 # PromptLine
 
+## 0.6.0
+
+### Further Changes
+
+- Upgarded PathKit dependency
+
 ## 0.5.1
 
 ### Further Changes

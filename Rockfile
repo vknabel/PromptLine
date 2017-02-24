@@ -1,10 +1,10 @@
 name: PromptLine
-version: 0.6.0
+version: 0.6.1
 dependencies:
   - sourcery@0.5.3
 scripts:
   generate:
-    - sourcery Tests/ Templates/LinuxMain.swift.stencil Tests/LinuxMain.swift # --args testimports="import PromptLineTests"
+    - sourcery Tests/ Templates/LinuxMain.swift.stencil Tests/LinuxMain.swift --args testimports="import PromptLineTests"
   publish:
     # Set git tag
     - git tag -a {{version}} -m {{version}}

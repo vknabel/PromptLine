@@ -5,7 +5,6 @@
 import XCTest
 import PromptLineTests
 
-
 extension PromptLineTapsTests {
   static var allTests = [
     ("testSomething", testSomething),

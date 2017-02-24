@@ -13,7 +13,11 @@ public extension Prompt {
     return { command in
       switch command {
       case let .inlined(cmd):
+        #if os(Linux)
+        return { $0.run(["bash", "-c", "cd \($0.workingDirectory) && \(cmd)"]) }
+        #else
         return { $0.run(["bash", "-c", cmd]) }
+        #endif
       case let .prepared(cmd):
         return { prompt in
           let envedCmd = cmd.map({ arg in

@@ -1,5 +1,11 @@
 # PromptLine
 
+## 0.6.1
+
+### Further Changes
+
+- Added workaround for a bug in `Foundation.Task` for Linux
+
 ## 0.6.0
 
 ### Further Changes

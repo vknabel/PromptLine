@@ -2,7 +2,7 @@ import Foundation
 import PathKit
 import Lens
 
-#if os(Linux) && swift(>=4.1)
+#if os(Linux) || swift(>=4.1)
 typealias Process = Task
 #endif
 

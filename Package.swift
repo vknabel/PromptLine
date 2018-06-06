@@ -6,8 +6,5 @@ let package = Package(
     .Package(url: "https://github.com/kylef/PathKit.git", majorVersion: 0, minor: 8),
     .Package(url: "https://github.com/antitypical/Result.git", majorVersion: 3),
     .Package(url: "https://github.com/vknabel/Lens.git", majorVersion: 0, minor: 1),
-
-    // Test Dependencies
-    .Package(url: "https://github.com/vknabel/Taps.git", majorVersion: 0, minor: 2)
   ]
 )
